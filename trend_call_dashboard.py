@@ -24,7 +24,7 @@ def fetch_insights(symbol):
     expiry = expiries[0]
     chain = nse.options.option_chain(symbol, expiry_date=expiry)
 
-    if chain.empty:
+    if chain is None or chain.empty:
         return None
 
     pe_oi = chain[chain['type'] == 'PE'][['strikePrice', 'openInterest']].sort_values(by='openInterest', ascending=False)
